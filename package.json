@@ -1,0 +1,20 @@
+{
+  "name": "weg-resource",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hubcarl/weg-resource.git"
+  },
+  "keywords": [
+    "express",
+    "middleware",
+    "fis map",
+    "fis3 map",
+    "view",
+    "swig"
+  ]
+}
