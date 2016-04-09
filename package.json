@@ -1,13 +1,13 @@
 {
   "name": "weg-resource",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hubcarl/weg-resource.git"
+    "url": "git+https://github.com/hubcarl/weg-resource.git"
   },
   "keywords": [
     "express",
@@ -16,5 +16,36 @@
     "fis3 map",
     "view",
     "swig"
-  ]
+  ],
+  "gitHead": "236fe9d682c3ddcb9f10881bdb2aa279c63c298a",
+  "description": "",
+  "bugs": {
+    "url": "https://github.com/hubcarl/weg-resource/issues"
+  },
+  "homepage": "https://github.com/hubcarl/weg-resource#readme",
+  "_id": "weg-resource@0.0.1",
+  "_shasum": "9216254718f10ee7979877a99677368828bcd865",
+  "_from": "weg-resource@0.0.1",
+  "_npmVersion": "2.14.7",
+  "_nodeVersion": "4.2.2",
+  "_npmUser": {
+    "name": "hubcarl",
+    "email": "hubcarl@126.com"
+  },
+  "dist": {
+    "shasum": "9216254718f10ee7979877a99677368828bcd865",
+    "tarball": "https://registry.npmjs.org/weg-resource/-/weg-resource-0.0.1.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "hubcarl",
+      "email": "hubcarl@126.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/weg-resource-0.0.1.tgz_1458984610068_0.2897083351854235"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/weg-resource/-/weg-resource-0.0.1.tgz"
 }

@@ -24,10 +24,10 @@ ResourceApi.prototype.getInfo = function(id, ignorePkg) {
 
     // resId:widget/pagelets/async/async.tpl
     var info;
-    console.log('getInfo[resId]0:' + id);
+    //console.log('getInfo[resId]0:' + id);
     if (id && this.maps || this.lazyload()) {
         var resId = id.replace(this.root + '/', "");
-        console.log('getInfo[resId]1:' + resId);
+        //console.log('getInfo[resId]1:' + resId);
         if(!new RegExp('^'+this.prefix).test(resId) ){
             if(new RegExp('.tpl$').test(resId)){
                 resId = path.join(path.join(this.prefix , 'views'), resId);
@@ -35,12 +35,12 @@ ResourceApi.prototype.getInfo = function(id, ignorePkg) {
                 resId = path.join(this.prefix, resId);
             }
         }
-        console.log('getInfo[resId]2:' + resId);
+        //console.log('getInfo[resId]2:' + resId);
         info = this.maps['res'][resId];
         if (!ignorePkg && info && info['pkg']) {
             info = this.maps['pkg'][info['pkg']];
         }
-        console.log('getInfo[id]:' + id + ' [resId]:' + resId + ' [info]:' + JSON.stringify(info));
+        //console.log('getInfo[id]:' + id + ' [resId]:' + resId + ' [info]:' + JSON.stringify(info));
     }
     return info;
 };
@@ -61,7 +61,7 @@ ResourceApi.prototype.lazyload = function () {
 
     var mapFilePath = path.join(path.join(this.root, this.prefix), 'map.json');
 
-    console.log('---mapFilePath:' + mapFilePath);
+    //console.log('---mapFilePath:' + mapFilePath);
 
     try {
         var mapJSONStr =  fs.readFileSync(mapFilePath);
