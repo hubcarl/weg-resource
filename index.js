@@ -2,9 +2,15 @@ var fs = require('fs');
 var path = require('path');
 var log=console.log;
 
-function ResourceApi(root, prefix) {
-    this.root = root;
-    this.prefix = prefix;
+/**
+ * weg 资源映射查找
+ * @param www 应用根目录
+ * @param client 前端静态资源根目录文件夹名称
+ * @constructor
+ */
+function ResourceMap(www, client) {
+    this.www = www;
+    this.client = client;
     this.lazyload();
 }
 
@@ -14,25 +20,25 @@ function ResourceApi(root, prefix) {
  * @param  {[type]} id [description]
  * @return {[type]}    [description]
  */
-ResourceApi.prototype.resolve = function(id) {
+ResourceMap.prototype.resolve = function(id) {
     var info = this.getInfo(id);
     
     return info ? info.uri : '';
 };
 
-ResourceApi.prototype.getInfo = function(id, ignorePkg) {
+ResourceMap.prototype.getInfo = function(id, ignorePkg) {
 
     // resId:widget/pagelets/async/async.tpl
     var info;
     //console.log('getInfo[resId]0:' + id);
     if (id && this.maps || this.lazyload()) {
-        var resId = id.replace(this.root + '/', "");
+        var resId = id.replace(this.www + '/', "");
         //console.log('getInfo[resId]1:' + resId);
-        if(!new RegExp('^'+this.prefix).test(resId) ){
+        if(!new RegExp('^'+this.client).test(resId) ){
             if(new RegExp('.tpl$').test(resId)){
-                resId = path.join(path.join(this.prefix , 'views'), resId);
+                resId = path.join(path.join(this.client , 'views'), resId);
             }else{
-                resId = path.join(this.prefix, resId);
+                resId = path.join(this.client, resId);
             }
         }
         //console.log('getInfo[resId]2:' + resId);
@@ -45,7 +51,7 @@ ResourceApi.prototype.getInfo = function(id, ignorePkg) {
     return info;
 };
 
-ResourceApi.prototype.getPkgInfo = function(id) {
+ResourceMap.prototype.getPkgInfo = function(id) {
 
     var info;
 
@@ -57,9 +63,9 @@ ResourceApi.prototype.getPkgInfo = function(id) {
 };
 
 
-ResourceApi.prototype.lazyload = function () {
+ResourceMap.prototype.lazyload = function () {
 
-    var mapFilePath = path.join(path.join(this.root, this.prefix), 'map.json');
+    var mapFilePath = path.join(path.join(this.www, this.client), 'map.json');
 
     //console.log('---mapFilePath:' + mapFilePath);
 
@@ -74,7 +80,7 @@ ResourceApi.prototype.lazyload = function () {
     return true;
 };
 
-ResourceApi.prototype.destroy = function (id) {
+ResourceMap.prototype.destroy = function (id) {
     this.maps = null;
 };
 
@@ -82,22 +88,22 @@ ResourceApi.prototype.destroy = function (id) {
 module.exports = function (options) {
     options = options || {};
 
-    var root = options.root||'';
-    var prefix = options.prefix||'';
+    var www = options.www||'';
+    var client = options.client||'';
     var cache = options.cache;
-    var singlon = new ResourceApi(root, prefix);
+    var singlon = new ResourceMap(www, client);
 
     return function (req, res, next) {
         var destroy;
 
-        res.fis = cache ? singlon : new ResourceApi(root, prefix);
+        res.resourceMap = cache ? singlon : new ResourceMap(www, client);
 
         destroy = function() {
             res.removeListener('finish', destroy);
             //res.removeListener('close', destroy);
 
-            cache && res.fis.destroy();
-            res.fis = null;
+            cache && res.resourceMap.destroy();
+            res.resourceMap = null;
         };
 
         res.on('finish', destroy);
@@ -107,4 +113,4 @@ module.exports = function (options) {
     };
 };
 
-module.exports.ResourceApi = ResourceApi;
+module.exports.ResourceMap = ResourceMap;
